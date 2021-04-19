@@ -132,6 +132,10 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+NETWORK_SETTINGS = {
+    "ETH": []
+}
+
 try:
     from backend.settings_local import *
 except ImportError:
