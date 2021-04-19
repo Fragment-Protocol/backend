@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from backend.locked_nft.views import LockedNFTView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('locked_nft/', LockedNFTView.as_view())
 ]

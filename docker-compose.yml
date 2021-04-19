@@ -22,6 +22,16 @@ services:
       - rabbitmq
     networks:
       fragment-protocol:
+  receiver:
+    build:
+      context: .
+      dockerfile: receiver.Dockerfile
+    depends_on:
+      - db
+      - rabbitmq
+    restart: unless-stopped
+    networks:
+      fragment-protocol:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     # container_name: rabbitmq
