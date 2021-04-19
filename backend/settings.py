@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'backend.locked_nft'
+    'rest_framework',
+
+    'backend.locked_nft',
 ]
 
 MIDDLEWARE = [
