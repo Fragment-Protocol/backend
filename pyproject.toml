@@ -10,6 +10,7 @@ Django = "^3.2"
 djangorestframework = "^3.12.4"
 web3 = "^5.18.0"
 pika = "^1.2.0"
+psycopg2-binary = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 
