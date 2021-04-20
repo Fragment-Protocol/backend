@@ -5,7 +5,6 @@ from web3.middleware import geth_poa_middleware
 from backend.locked_nft.models import LockedNFT, BEP20
 from contract_abi import nft_lock_abi
 
-
 url = settings.NETWORK_SETTINGS['ETH_MAINNET']['url']
 rpc = Web3(Web3.HTTPProvider(url))
 rpc.middleware_onion.inject(geth_poa_middleware, layer=0)
@@ -14,14 +13,18 @@ unlock_contract = rpc.eth.contract(address=rpc.toChecksumAddress(settings.UNLOCK
 
 
 def create_locked_nft(message):
-    l = LockedNFT(**message)
+    owner = message['owner']
+    nftAddress = message['nftAddress']
+    nftId = message['nftId']
+    l = LockedNFT(owner=owner, nftAddress=nftAddress, nftId=nftId)
     l.save()
     return l
 
 
 def create_bep20(message):
-    message['created_from'] = message.pop('from')
-    o = BEP20(**message)
+    tokenAddress = message['tokenAddress']
+    created_from = message['from']
+    o = BEP20(tokenAddress=tokenAddress, created_from=created_from)
     o.save()
     return o
 
