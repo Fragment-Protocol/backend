@@ -4,6 +4,7 @@ from web3.middleware import geth_poa_middleware
 
 from backend.locked_nft.models import LockedNFT, BEP20
 from contract_abi import nft_lock_abi
+from requests import get
 
 url = settings.NETWORK_SETTINGS['ETH_MAINNET']['url']
 rpc = Web3(Web3.HTTPProvider(url))
@@ -18,6 +19,14 @@ def create_locked_nft(message):
     nftId = message['nftId']
     l = LockedNFT(owner=owner, nftAddress=nftAddress, nftId=nftId)
     l.save()
+
+    url = 'https://api.opensea.io/api/v1/asset/{0}/{1}/'
+    r = get(url.format(nftAddress, nftId))
+    if not r.status_code == 404:
+        data = r.json()
+        l.name = data.get('name')
+        l.image_url = data.get('image_url')
+        l.permalink = data.get('permalink')
     return l
 
 

@@ -18,6 +18,9 @@ class LockedNFT(models.Model):
     nftId = models.IntegerField()
     bep20 = models.OneToOneField('BEP20', null=True, on_delete=models.CASCADE, related_name='bep20')
     ready_to_withdraw = models.BooleanField(default=False)
+    name = models.CharField(max_length=256, null=True)
+    image_url = models.TextField(null=True)
+    permalink = models.TextField(null=True)
 
     def unlock(self):
         if not self.ready_to_withdraw:
