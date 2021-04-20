@@ -23,10 +23,20 @@ services:
     networks:
       fragment-protocol:
     env_file: .env
+  checker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    networks:
+      fragment-protocol:
+    env_file: .env
+    command: poetry run python checker.py
   receiver:
     build:
       context: .
-      dockerfile: receiver.Dockerfile
+      dockerfile: dockerfiles/receiver.Dockerfile
     depends_on:
       - db
       - rabbitmq
