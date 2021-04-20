@@ -53,8 +53,7 @@ class Receiver(threading.Thread):
         print('received', body, properties, method)
         try:
             message = json.loads(body.decode())
-            if message.get('status', '') == 'COMMITTED':
-                getattr(self, properties.type, self.unknown_handler)(message)
+            getattr(self, properties.type, self.unknown_handler)(message)
         except Exception as e:
             print('\n'.join(traceback.format_exception(*sys.exc_info())))
         else:
@@ -68,6 +67,7 @@ class Receiver(threading.Thread):
         create_locked_nft(message)
 
     def token_created(self, message):
+        print('Token created event')
         create_bep20(message)
 
     def is_ready_to_withdraw(self, message):

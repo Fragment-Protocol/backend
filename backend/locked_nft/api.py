@@ -36,6 +36,7 @@ def create_bep20(message):
     created_from = message['from']
     o = BEP20(tokenAddress=tokenAddress, created_from=created_from)
     o.save()
+    print(f'created nft with id {o.id}')
     return o
 
 
