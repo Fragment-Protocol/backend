@@ -64,6 +64,7 @@ class Receiver(threading.Thread):
         print('unknown message', message)
 
     def deposit_nft(self, message):
+        print('Got deposit nft event')
         create_locked_nft(message)
 
     def token_created(self, message):

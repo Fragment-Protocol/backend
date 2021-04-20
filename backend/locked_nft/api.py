@@ -19,7 +19,7 @@ def create_locked_nft(message):
     nftId = message['nftId']
     l = LockedNFT(owner=owner, nftAddress=nftAddress, nftId=nftId)
     l.save()
-
+    print(f'created nft with id {l.id}')
     url = 'https://api.opensea.io/api/v1/asset/{0}/{1}/'
     r = get(url.format(nftAddress, nftId))
     if not r.status_code == 404:
@@ -27,6 +27,7 @@ def create_locked_nft(message):
         l.name = data.get('name')
         l.image_url = data.get('image_url')
         l.permalink = data.get('permalink')
+        l.save()
     return l
 
 
