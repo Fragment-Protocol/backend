@@ -1,23 +1,20 @@
 import os
+
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
-import json
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
-
 import django
-
 django.setup()
 
 from django.conf import settings
+
 from backend.locked_nft.models import LockedNFT
+from contract_abi import bep20_abi
 
 url = settings.NETWORK_SETTINGS['BSC_MAINNET']['url']
 rpc = Web3(Web3.HTTPProvider(url))
 rpc.middleware_onion.inject(geth_poa_middleware, layer=0)
-
-with open('erc20_abi.json') as f:
-    bep20_abi = json.load(f)
 
 
 def process():

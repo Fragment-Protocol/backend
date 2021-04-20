@@ -10,7 +10,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
 import django
 django.setup()
-from backend.locked_nft.api import create_locked_nft, create_bep20
+from backend.locked_nft.api import create_locked_nft, create_bep20, unlock_nft
 
 from django.conf import settings
 
@@ -68,6 +68,9 @@ class Receiver(threading.Thread):
 
     def token_created(self, message):
         create_bep20(message)
+
+    def is_ready_to_withdraw(self, message):
+        unlock_nft(message)
 
 
 if __name__ == '__main__':
