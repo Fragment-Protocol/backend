@@ -51,5 +51,5 @@ def unlock_nft(message):
     o.ready_to_withdraw = True
     o.save()
     o.bep20.burned = True
-    o.bep20.check_balance()
+    o.bep20.current_balance = o.bep20.total
     o.bep20.save()
