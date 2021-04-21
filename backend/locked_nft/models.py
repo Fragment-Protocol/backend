@@ -38,7 +38,7 @@ class LockedNFT(models.Model):
 
 
 class BEP20(models.Model):
-    tokenAddress = models.CharField(max_length=50, unique=True)
+    tokenAddress = models.CharField(max_length=50)
     created_from = models.CharField(max_length=50)
     current_balance = models.CharField(max_length=256)
     total = models.CharField(max_length=256)
