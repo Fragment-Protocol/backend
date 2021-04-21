@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from backend.locked_nft.views import LockedNFTView, UnlockNFTView
 
 urlpatterns = [
@@ -22,3 +22,5 @@ urlpatterns = [
     path('locked_nft/', LockedNFTView.as_view()),
     path('locked_nft/<int:pk>/unlock/', UnlockNFTView.as_view()),
 ]
+
+urlpatterns = [path(r'api/', include(urlpatterns))]
