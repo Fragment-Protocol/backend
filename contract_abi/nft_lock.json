@@ -172,8 +172,13 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "nftAddress",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "index",
+        "name": "nftId",
         "type": "uint256"
       }
     ],
@@ -185,9 +190,19 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "nftAddress",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "index",
+        "name": "nftId",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
       }
     ],
     "name": "withdrawNft",
