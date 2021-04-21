@@ -50,3 +50,5 @@ def unlock_nft(message):
     o = LockedNFT.objects.get(bep20__tokenAddress=tokenAddress)
     o.ready_to_withdraw = True
     o.save()
+    o.bep20.burned = True
+    o.bep20.save()

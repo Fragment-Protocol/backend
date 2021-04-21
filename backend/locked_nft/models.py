@@ -48,17 +48,20 @@ class BEP20(models.Model):
     total = models.CharField(max_length=256)
     name = models.CharField(max_length=32)
     decimals = models.IntegerField(null=True)
+    burned = models.BooleanField(default=False)
 
     def check_balance(self):
         contract = bsc_rpc.eth.contract(address=bsc_rpc.toChecksumAddress(self.tokenAddress), abi=bep20_abi)
         current_balance = contract.functions.balanceOf(contract.address).call()
-        total = contract.functions.totalSupply().call()
         self.current_balance = current_balance
-        self.total = total
         self.save()
 
     def check_decimals(self):
         contract = bsc_rpc.eth.contract(address=bsc_rpc.toChecksumAddress(self.tokenAddress), abi=bep20_abi)
         decimals = contract.functions.decimals().call()
+        total = contract.functions.totalSupply().call()
+        name = contract.functions.name().call()
         self.decimals = decimals
+        self.total = total
+        self.name = name
         self.save()

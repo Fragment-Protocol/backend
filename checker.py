@@ -9,7 +9,7 @@ from backend.locked_nft.models import LockedNFT
 
 
 def process():
-    addresses = LockedNFT.objects.filter(bep20__isnull=False)
+    addresses = LockedNFT.objects.filter(bep20__isnull=False, bep20__burned=False)
     print(f'Check {len(addresses)} addresses')
     for address in addresses:
         address.bep20.check_balance()
