@@ -29,11 +29,13 @@ class LockedNFT(models.Model):
     def unlock(self):
         if not self.ready_to_withdraw:
             return
-        tx = unlock_contract.functions.unlock(self.owner, self.nftAddress, self.nftId).buildTransaction()
-        tx.update({'gas': 30000})
-        tx.update({'gasPrice': eth_rpc.eth.gasPrice})
-        tx.update({'chainId': eth_rpc.eth.chainId})
-        tx.update({'nonce': eth_rpc.eth.get_transaction_count(settings.PUBLIC_KEY)})
+        tx_params = {'gas': 30000,
+                     'gasPrice': eth_rpc.eth.gasPrice,
+                     'chainId': eth_rpc.eth.chainId,
+                     'nonce': eth_rpc.eth.get_transaction_count(settings.PUBLIC_KEY),
+                     'from': settings.PUBLIC_KEY
+                     }
+        tx = unlock_contract.functions.unlock(self.owner, self.nftAddress, self.nftId).buildTransaction(tx_params)
         signed_tx = eth_rpc.eth.account.sign_transaction(tx, settings.PRIVATE_KEY)
         print(signed_tx)
         tx_hash = eth_rpc.eth.sendRawTransaction(signed_tx.rawTransaction)
