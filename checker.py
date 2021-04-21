@@ -27,7 +27,7 @@ def process():
         total = contract.functions.totalSupply().call()
         address.bep20.current_balance = current_balance
         address.bep20.total = total
-        address.save()
+        address.bep20.save()
 
 
 if __name__ == '__main__':
