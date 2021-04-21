@@ -36,6 +36,8 @@ def create_bep20(message):
     created_from = message['from']
     o = BEP20(tokenAddress=tokenAddress, created_from=created_from)
     o.save()
+    o.check_balance()
+    o.check_decimals()
     print(f'created bsc20 with id {o.id}')
     locked_nft = LockedNFT.objects.filter(owner__iexact=created_from, bep20__isnull=True).first()
     locked_nft.bep20 = o
