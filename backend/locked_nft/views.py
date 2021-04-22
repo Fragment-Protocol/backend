@@ -16,5 +16,5 @@ class UnlockNFTView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         o = self.get_object()
-        tx_hash = o.unlock()
-        return Response({'tx_hash': tx_hash})
+        o.delete()
+        return Response()

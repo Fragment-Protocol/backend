@@ -40,7 +40,6 @@ class LockedNFT(models.Model):
         print(signed_tx)
         tx_hash = eth_rpc.eth.sendRawTransaction(signed_tx.rawTransaction)
         print(tx_hash.hex())
-        self.delete()
         return tx_hash.hex()
 
 
