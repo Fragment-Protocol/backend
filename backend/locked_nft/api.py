@@ -28,6 +28,12 @@ def create_locked_nft(message):
         l.image_url = data.get('image_url')
         l.permalink = data.get('permalink')
         l.save()
+    bep20 = BEP20.objects.filter(nft__isnull=True, burned=False).last()
+    if not bep20:
+        print(f'BEP20 not found for token with id {l.id}')
+        return l
+    l.bep20 = bep20
+    l.save()
     return l
 
 
@@ -40,6 +46,9 @@ def create_bep20(message):
     o.check_decimals()
     print(f'created bsc20 with id {o.id}')
     locked_nft = LockedNFT.objects.filter(owner__iexact=created_from, bep20__isnull=True).first()
+    if not locked_nft:
+        print(f'NFT not found with owner {created_from}')
+        return o
     locked_nft.bep20 = o
     locked_nft.save()
     return o
