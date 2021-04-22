@@ -55,6 +55,7 @@ def create_bep20(message):
 
 
 def unlock_nft(message):
+    print(f'Start unlocking {message}')
     tokenAddress = message.get('tokenAddress')
     o = LockedNFT.objects.get(bep20__tokenAddress=tokenAddress)
     o.unlock()
