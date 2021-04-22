@@ -29,7 +29,7 @@ class LockedNFT(models.Model):
     def unlock(self):
         if not self.ready_to_withdraw:
             return
-        tx_params = {'gas': 30000,
+        tx_params = {'gas': 70000,
                      'gasPrice': eth_rpc.eth.gasPrice,
                      'chainId': eth_rpc.eth.chainId,
                      'nonce': eth_rpc.eth.get_transaction_count(settings.PUBLIC_KEY),
