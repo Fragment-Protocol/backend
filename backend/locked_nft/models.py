@@ -55,7 +55,7 @@ class BEP20(models.Model):
 
     def check_balance(self):
         contract = bsc_rpc.eth.contract(address=bsc_rpc.toChecksumAddress(self.tokenAddress), abi=bep20_abi)
-        current_balance = contract.functions.balanceOf(contract.address).call()
+        current_balance = contract.functions.balanceOf(settings.FACTORY_ADDRESS).call()
         self.current_balance = current_balance
         self.save()
 
