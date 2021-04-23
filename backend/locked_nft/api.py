@@ -28,7 +28,7 @@ def create_locked_nft(message):
         l.image_url = data.get('image_url')
         l.permalink = data.get('permalink')
         l.save()
-    bep20 = BEP20.objects.filter(nft__isnull=True, burned=False).last()
+    bep20 = BEP20.objects.filter(nft__isnull=True, burned=False, created_from__iexact=owner).last()
     if not bep20:
         print(f'BEP20 not found for token with id {l.id}')
         return l
